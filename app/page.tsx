@@ -1,161 +1,201 @@
-// Define a simple component for section titles to maintain consistency
-const SectionTitle = ({ children }: { children: React.ReactNode }) => {
-  return <h2 className="text-3xl font-bold text-cyan-400 mb-6">{children}</h2>;
+// src/app/page.tsx
+import Image from 'next/image';
+import { ThemeSwitcher } from '@/components/ThemeSwitcher'; // Adjust path if necessary
+
+// SectionTitle and Tag components remain the same from your previous code
+const SectionTitle = ({ title }: { title: string }) => {
+  return <h2 className="text-3xl font-bold text-cyan-500 dark:text-cyan-400 mb-8 mt-12 text-center md:text-left">{title}</h2>;
 };
 
-// Define a simple component for skill/tool tags
-const Tag = ({ children }: { children: React.ReactNode }) => {
-  return <span className="bg-gray-700 text-cyan-300 px-3 py-1 rounded-full text-sm mr-2 mb-2 inline-block">{children}</span>;
+const Tag = ({ text }: { text: string }) => {
+  return (
+      <span className="bg-gray-200 text-cyan-700 dark:bg-gray-700 dark:text-cyan-300 px-3 py-1.5 rounded-full text-sm mr-2 mb-2 inline-block shadow-md">
+      {text}
+    </span>
+  );
 };
 
 
 export default function HomePage() {
-  // Content based on your blog post (Source [1])
-  const intro = {
-    headline: "My Journey into Cybersecurity",
-    statement: "Hello Folks! Thank you for visiting. Let me take you through my journey into cybersecurity, from curiosity-driven tinkerer to a certified professional blending QA and AppSec." // [cite: 1]
-  };
+  // --- CONTENT PLACEHOLDERS (from your previous code) ---
+  const yourName = "Prashanth E";
+  const yourRole = "Application Security Engineer";
+  const heroIntroText = "Hello! I'm Prashanth, a cybersecurity professional transforming digital landscapes by blending QA expertise with a deep passion for application security.";
+  const profileImageSrc = "/prashanth-profile.jpg"; // Update this path
 
-  const foundation = {
-    title: "The Spark: Early Beginnings",
-    points: [
-      "Started IT career with a Bachelor’s degree in Computer Applications, followed by a part-time Master’s degree while working as an Automation Tester.", // [cite: 1]
-      "Always fascinated by how systems work—whether reverse-engineering gadgets, analyzing code, or obsessing over Batman’s tech.", // [cite: 1]
-      "Cybersecurity journey began during my bachelor’s program with a Phishing Detection Application project.", // [cite: 1]
-      "Built a system to detect malicious emails and spoofed websites using open-source tools from GitHub.", // [cite: 1]
-      "This project sparked my passion for ethical hacking, understanding it as methodical problem-solving." // [cite: 1]
+  // ... (rest of your content objects: education, career, technicalProfile) ...
+  // Ensure you have these defined as in the previous version of this file.
+  // For brevity, I'm omitting them here, but they should be present.
+  // Example:
+  const education = {
+    title: "My Foundation & Education",
+    ug: { degree: "Bachelor’s degree in Computer Applications", institution: "SRM Institute of Science and Technology", details: "Started IT career with this degree." },
+    pg: { degree: "Part-time Master’s degree", institution: "University of Madras", details: "Pursued while working as an Automation Tester." },
+    fascination: "Always fascinated by how systems work, whether reverse-engineering gadgets, analyzing code, or obsessing over Batman’s tech."
+  };
+  const career = { // This object itself does not have a 'title' property
+    firstJob: { role: "Automation Tester", company: "Infosys", spark: "Cybersecurity journey started during my bachelor’s program with a Phishing Detection Application project..." },
+    udemyExperiment: { title: "The Udemy Experiment", course: "'Ethical Hacking from Scratch' by Zaid Sabih.", learnings: "Introduced basics... a humbling lesson..." },
+    tryHackMeAwakening: { title: "TryHackMe & Practical Awakening", experience: "My breakthrough came with TryHackMe... skills now used daily..." }
+  };
+  const technicalProfile = {
+    // This object also does not have a 'title' property directly
+    skillsAndTechIntro: "Key skills and technologies I've worked with through my journey:",
+    categories: [
+      { name: "From Phishing Project & Early Learning", items: ["Open-source GitHub tools"] },
+      { name: "Udemy Course Learnings", items: ["Information Gathering", "Network Scanning", "Nmap", "Wireshark", "Metasploit", "WAPT"] },
+      { name: "TryHackMe Expertise (100+ labs)", items: ["Pentesting Principles", "Linux Mastery", "Network Fundamentals", "OWASP Top 10", "Nmap Advanced", "EternalBlue"] },
+      { name: "Current Role @ Infosys - Focus Areas & Tools", items: ["Identifying OWASP Top 10", "Securing Legacy Systems", "GDPR/HIPAA", "Automating Security in CI/CD", "Burp Suite", "Selenium", "Java"] }
+    ],
+    certifications: [
+      { name: "CompTIA Security+", status: "Certified" },
+      { name: "CEH v12", status: "Certified" },
+      { name: "OSCP", status: "Preparing" }
     ]
   };
 
-  const learningCurve = {
-    title: "Navigating the Learning Curve",
-    udemy: {
-      intro: "A friend gifted me a Udemy course 'Ethical Hacking from Scratch' by Zaid Sabih. While it introduced basics like information gathering, scanning, and gaining access, I struggled to grasp the \"why\" behind attacks. Completing the course left me with a certificate but little practical knowledge—a humbling lesson in the importance of foundational learning.", // [cite: 1]
-      skills: ["Information Gathering", "Network Scanning", "Nmap Advanced Enumeration", "Wireshark Packet Analysis", "Metasploit Framework", "Web App Testing (WAPT)", "Access Exploitation"] // [cite: 1] (Combined from list)
-    },
-    tryhackme: {
-      intro: "My breakthrough came with TryHackMe. Here, I learned the fundamentals of networking, tools like Nmap, and web app hacking via the OWASP Top 10. Solving machines taught me to research services, abuse misconfigurations, and chain vulnerabilities—skills I now use daily as a Software Quality Engineer at Infosys.", // [cite: 1]
-      achievementsHeading: "Mastered through 100+ labs:", // [cite: 1]
-      skills: ["Pentesting Principles", "Linux System Mastery", "Network Fundamentals", "OWASP Top 10 Vulnerabilities", "Nmap Advanced Techniques", "EternalBlue Exploitation"] // [cite: 1] (Combined from list)
-    }
-  };
-
-  const currentStatus = {
-    title: "Where I Am Now: Merging QA and AppSec",
-    introPoints: [
-      "Today, I hold certifications like CompTIA Security+ and CEH v12, and I’m preparing for the OSCP.", // [cite: 1]
-      "At Infosys, I merge QA automation (Java/Selenium) with security testing, focusing on:", // [cite: 1]
-    ],
-    focusAreas: [
-      "Identifying OWASP Top 10 vulnerabilities in web apps/APIs.", // [cite: 1]
-      "Securing legacy systems (Mainframe, Oracle JDBC) for GDPR/HIPAA compliance.", // [cite: 1]
-      "Automating security checks in CI/CD pipelines using tools like Burp Suite." // [cite: 1]
-    ],
-    summary: {
-      certifications: ["Security+", "CEH v12"], // [cite: 1]
-      tools: ["Burp Suite", "Metasploit", "Selenium"], // [cite: 1]
-      specialties: ["Web App Security", "Legacy System Hardening"] // [cite: 1]
-    }
-  };
-
-  const finalThoughts = {
-    title: "The Journey Continues",
-    statement1: "Cybersecurity is a journey of continuous learning. Whether you’re starting with TryHackMe or transitioning from QA like me, persistence and curiosity are key.", // [cite: 1]
-    statement2: "If you’re passionate about ethical hacking, AppSec, or Batman’s tech, let’s connect!" // [cite: 1]
-  };
-
-  const connectLinks = [
-    { name: "Twitter", url: "#" }, // Replace # with actual URLs
-    { name: "LinkedIn", url: "#" },
-    { name: "Blog", url: "https://sunilprashanthh.blogspot.com/" } // [cite: 1]
-  ];
-
 
   return (
-      <div className="container mx-auto px-4 md:px-8 py-12 max-w-4xl"> {/* Main container for content */}
-        {/* Hero/Introduction Section */}
-        <section className="mb-16 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">{intro.headline}</h1>
-          <p className="text-lg md:text-xl text-gray-300 leading-relaxed">{intro.statement}</p>
-        </section>
+      // Main page background and text colors are now theme-aware
+      <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-300 font-sans leading-relaxed transition-colors duration-300">
 
-        {/* Foundation Section */}
-        <section className="mb-12">
-          <SectionTitle>{foundation.title}</SectionTitle>
-          <ul className="list-disc list-inside space-y-3 text-gray-300 leading-relaxed">
-            {foundation.points.map((point, index) => <li key={index}>{point}</li>)}
-          </ul>
-        </section>
+        {/* Theme Switcher - Positioned fixed for easy access */}
+        <div className="fixed top-4 right-4 z-50">
+          <ThemeSwitcher />
+        </div>
 
-        {/* Learning Curve Section */}
-        <section className="mb-12">
-          <SectionTitle>{learningCurve.title}</SectionTitle>
-          <div className="mb-8 p-6 bg-gray-800 rounded-lg shadow-lg">
-            <h3 className="text-2xl font-semibold text-white mb-3">The Udemy Experiment</h3>
-            <p className="text-gray-300 mb-4 leading-relaxed">{learningCurve.udemy.intro}</p>
-            <div className="mb-2">
-              {learningCurve.udemy.skills.map(skill => <Tag key={skill}>{skill}</Tag>)}
-            </div>
-          </div>
-          <div className="p-6 bg-gray-800 rounded-lg shadow-lg">
-            <h3 className="text-2xl font-semibold text-white mb-3">TryHackMe & Practical Awakening</h3>
-            <p className="text-gray-300 mb-4 leading-relaxed">{learningCurve.tryhackme.intro}</p>
-            <h4 className="font-semibold text-white mb-2">{learningCurve.tryhackme.achievementsHeading}</h4>
-            <div>
-              {learningCurve.tryhackme.skills.map(skill => <Tag key={skill}>{skill}</Tag>)}
-            </div>
-          </div>
-        </section>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 max-w-4xl">
 
-        {/* Current Status Section */}
-        <section className="mb-12">
-          <SectionTitle>{currentStatus.title}</SectionTitle>
-          <div className="p-6 bg-gray-800 rounded-lg shadow-lg">
-            {currentStatus.introPoints.map((point, index) => <p key={index} className="text-gray-300 mb-2 leading-relaxed">{point}</p>)}
-            <ul className="list-disc list-inside space-y-2 my-4 text-gray-300 pl-4">
-              {currentStatus.focusAreas.map((area, index) => <li key={index}>{area}</li>)}
-            </ul>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-              <div>
-                <h4 className="font-semibold text-white mb-2">Certifications:</h4>
-                {currentStatus.summary.certifications.map(cert => <Tag key={cert}>{cert}</Tag>)}
+          {/* Hero/Introduction Section */}
+          <section
+              id="hero-introduction"
+              className="min-h-screen flex flex-col justify-center items-center p-6 md:p-12 lg:p-24
+                     bg-gradient-to-br from-gray-100 via-white to-gray-100
+                     dark:from-gray-900 dark:via-gray-800 dark:to-gray-900
+                     relative overflow-hidden transition-colors duration-300"
+          >
+            {/* ... (Optional subtle background pattern - ensure it also supports dark/light themes if used) ... */}
+
+            <div className="relative z-10 w-full max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-8 items-center">
+              <div className="md:col-span-2 flex justify-center md:justify-start">
+                <div className="w-56 h-56 md:w-72 md:h-72 lg:w-80 lg:h-80 relative transform transition-all duration-500 hover:scale-105">
+                  <Image
+                      src={profileImageSrc}
+                      alt={yourName}
+                      layout="fill"
+                      objectFit="cover"
+                      className="rounded-full shadow-2xl border-4 border-gray-300 dark:border-gray-700 transition-colors duration-300"
+                      priority
+                  />
+                </div>
               </div>
-              <div>
-                <h4 className="font-semibold text-white mb-2">Tools:</h4>
-                {currentStatus.summary.tools.map(tool => <Tag key={tool}>{tool}</Tag>)}
-              </div>
-              <div>
-                <h4 className="font-semibold text-white mb-2">Specialties:</h4>
-                {currentStatus.summary.specialties.map(spec => <Tag key={spec}>{spec}</Tag>)}
+              <div className="md:col-span-3 text-center md:text-left">
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-white mb-3 leading-tight transition-colors duration-300">
+                  <span className="block">{yourName.split(' ')[0]}</span>
+                  <span className="block text-cyan-600 dark:text-cyan-400 transition-colors duration-300">{yourName.substring(yourName.indexOf(' ') + 1)}</span>
+                </h1>
+                <p className="text-xl sm:text-2xl lg:text-3xl font-medium text-gray-700 dark:text-gray-300 mb-6 transition-colors duration-300">
+                  {yourRole}
+                </p>
+                <p className="text-md sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed max-w-xl mx-auto md:mx-0 transition-colors duration-300">
+                  {heroIntroText}
+                </p>
+                <div className="mt-10">
+                  <a
+                      href="#education"
+                      className="inline-block bg-cyan-500 text-white font-semibold px-8 py-3 rounded-lg shadow-lg
+                             hover:bg-cyan-600 dark:hover:bg-cyan-400
+                             transform hover:scale-105 transition-all duration-300"
+                  >
+                    Discover My Journey
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-        </section>
+            {/* ... (Scroll down indicator - ensure its colors are theme-aware if you keep it) ... */}
+            <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-gray-500 dark:text-gray-400 animate-bounce hidden md:block transition-colors duration-300">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
+                <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 5.25 7.5 7.5 7.5-7.5m-15 6 7.5 7.5 7.5-7.5" />
+              </svg>
+            </div>
+          </section>
 
-        {/* Final Thoughts Section */}
-        <section className="mb-12 text-center">
-          <SectionTitle>{finalThoughts.title}</SectionTitle>
-          <p className="text-gray-300 mb-3 leading-relaxed">{finalThoughts.statement1}</p>
-          <p className="text-gray-300 leading-relaxed">{finalThoughts.statement2}</p>
-        </section>
+          {/* Education Section */}
+          <section id="education" className="py-16 md:py-24 px-6 container mx-auto max-w-4xl">
+            <div className="p-6 bg-gray-50 dark:bg-gray-800 rounded-xl shadow-xl transition-colors duration-300">
+              <SectionTitle title={education.title} /> {/* This is correct as education object has a title property */}
+              <div className="space-y-4">
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-800 dark:text-white">{education.ug.degree}</h3>
+                  <p className="text-cyan-600 dark:text-cyan-500">{education.ug.institution}</p>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm">{education.ug.details}</p>
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-800 dark:text-white">{education.pg.degree}</h3>
+                  <p className="text-cyan-600 dark:text-cyan-500">{education.pg.institution}</p>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm">{education.pg.details}</p>
+                </div>
+                <p className="italic text-gray-500 dark:text-gray-500 pt-2">{education.fascination}</p>
+              </div>
+            </div>
+          </section>
 
-        {/* Connect Section */}
-        <section className="text-center border-t border-gray-700 pt-8 mt-12">
-          <h2 className="text-2xl font-semibold text-white mb-6">Connect with Me</h2>
-          <div className="flex justify-center space-x-6">
-            {connectLinks.map(link => (
-                <a
-                    key={link.name}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-cyan-400 hover:text-cyan-300 transition-colors duration-300 text-lg"
-                >
-                  {link.name}
-                </a>
-            ))}
-          </div>
-        </section>
+          {/* Career Journey Section - Alternating Background Example */}
+          <section id="career-journey" className="py-16 md:py-24 px-6 bg-gray-100 dark:bg-gray-800 transition-colors duration-300">
+            <div className="container mx-auto max-w-4xl p-6 bg-white dark:bg-gray-850 rounded-xl shadow-xl transition-colors duration-300"> {/* Inner card can have slightly different bg */}
+              {/* CORRECTED LINE BELOW: Provide a string literal for the main section title */}
+              <SectionTitle title="My Career Journey" />
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-800 dark:text-white">{career.firstJob.role} at <span className="text-cyan-600 dark:text-cyan-500">{career.firstJob.company}</span></h3>
+                  <p className="text-gray-600 dark:text-gray-400 mt-1">{career.firstJob.spark}</p>
+                </div>
+                <div>
+                  {/* Sub-section title from career object */}
+                  <h3 className="text-xl font-semibold text-gray-800 dark:text-white">{career.udemyExperiment.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-400 mt-1"><span className="font-medium text-gray-700 dark:text-gray-200">Course:</span> {career.udemyExperiment.course}</p>
+                  <p className="text-gray-600 dark:text-gray-400 mt-1">{career.udemyExperiment.learnings}</p>
+                </div>
+                <div>
+                  {/* Sub-section title from career object */}
+                  <h3 className="text-xl font-semibold text-gray-800 dark:text-white">{career.tryHackMeAwakening.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-400 mt-1">{career.tryHackMeAwakening.experience}</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Technical Profile Section */}
+          <section id="technical-profile" className="py-16 md:py-24 px-6 container mx-auto max-w-4xl">
+            <div className="p-6 bg-gray-50 dark:bg-gray-800 rounded-xl shadow-xl transition-colors duration-300">
+              {/* CORRECTED LINE BELOW: Provide a string literal for the main section title */}
+              <SectionTitle title="Technical Profile & Skills" />
+              <p className="text-gray-600 dark:text-gray-400 mb-6">{technicalProfile.skillsAndTechIntro}</p>
+              {technicalProfile.categories.map((category) => (
+                  <div key={category.name} className="mb-6">
+                    <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-3">{category.name}:</h3>
+                    <div className="flex flex-wrap">
+                      {category.items.map((item) => <Tag key={item} text={item} />)}
+                    </div>
+                  </div>
+              ))}
+              <div>
+                <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-3 mt-6">Certifications:</h3>
+                <div className="flex flex-wrap">
+                  {technicalProfile.certifications.map((cert) => (
+                      <Tag key={cert.name} text={`${cert.name} (${cert.status})`} />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Footer */}
+          <footer className="text-center py-10 border-t border-gray-300 dark:border-gray-700 mt-12 transition-colors duration-300">
+            <p className="text-gray-600 dark:text-gray-400">&copy; {new Date().getFullYear()} {yourName}. All rights reserved.</p>
+          </footer>
+
+        </div>
       </div>
   );
 }

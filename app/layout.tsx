@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google'; // Or any other font you prefer
+import { Inter } from 'next/font/google';
 import './globals.css';
+import { ThemeProvider } from '@/components/ThemeProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -15,9 +16,22 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" className="scroll-smooth">
-        <body className={`${inter.className} bg-gray-900 text-gray-200`}>
-        {children}
+        <html lang="en" suppressHydrationWarning>
+        {/*
+            Next.js will automatically create the <head> and populate it
+            with metadata, fonts, and global CSS links.
+            You usually don't need to write <head></head> here yourself
+            unless adding very specific global tags.
+          */}
+        <body className={inter.className}> {/* Removed template literal just for className if only one variable */}
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+        >
+            {children}
+        </ThemeProvider>
         </body>
         </html>
     );
